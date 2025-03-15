@@ -1,0 +1,40 @@
+%% weibull distribution
+clc;clear;
+x=[xxx]';# your data, such as fault data, time data, and so on.
+N=length(x);
+% Empirical distribution
+for i=1:N
+    Ft(i)=(i-0.3)/(N+0.4);
+end
+xi=log(x);
+yi=log(log(1./(1-Ft)));
+x_mean=mean(xi);
+y_mean=mean(yi);
+l_xx=0;
+l_yy=0;
+l_xy=0;
+for i=1:N %sum
+    l_xx=l_xx+(xi(i)-x_mean)^2;
+    l_yy=l_yy+(yi(i)-y_mean)^2;
+    l_xy=l_xy+(xi(i)-x_mean)*(yi(i)-y_mean);
+end
+B=l_xy./l_xx;
+A=y_mean-B.*x_mean;
+eta=exp(-A./B);
+for i=1:N
+    F(i)=1-exp(-(x(i)/eta)^B);
+    Fn(i)=i/N;
+end
+Dc=1.63./sqrt(N);
+D=max(abs(Fn-F))
+D1=max(abs(Fn-F3))
+y1=yi';a1=xi-x_mean;a2=y1-y_mean;
+b1=a1.*a2;
+x_sum=sum((xi-x_mean)*(yi-y_mean));
+x1_sum=sqrt(sum((xi-x_mean).^2)*sum((yi-y_mean).^2));
+R=sum(b1)/x1_sum;
+Rnl=1-sqrt(sum(a2.^2)/sum(y1.^2));
+t1=1:1:1500;
+eta2=322;B2=1.14;
+F2=1-exp(-(t1./eta).^B);
+plot(t1,F2,'r-',x,Fn,'kx',t1,F3,'b-')

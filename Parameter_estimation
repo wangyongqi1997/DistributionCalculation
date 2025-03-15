@@ -1,3 +1,4 @@
+% THis is Matlab code
 %% weibull distribution
 clc;clear;
 x=[xxx]';# your data, such as fault data, time data, and so on.
